@@ -56,7 +56,7 @@ func main() {
 	}
 
 	// DropAllTables(DB)
-	// CreateAllTables(DB)
+	CreateAllTables(DB)
 
 	router := chi.NewRouter()
 
@@ -105,7 +105,9 @@ func CreateAllTables(DB *pg.DB) {
 
 	for _, model := range models {
 		err := DB.Model(model).CreateTable(&orm.CreateTableOptions{
-			Temp: false,
+			IfNotExists:   true,
+			Temp:          false,
+			FKConstraints: true,
 		})
 		if err != nil {
 			log.Print(err)
