@@ -9,9 +9,9 @@ type Epoch struct {
 	//lint:ignore U1000 `tableName` field is unused, but needed for go-pg
 	tableName           struct{}               `pg:"epochs"`
 	ID                  string                 `pg:"default:gen_random_uuid()"`
-	StartBlock          uint64                 `pg:",unique"`
-	EndBlock            uint64                 `pg:",unique"`
-	Number              uint64                 `pg:",unique"`
+	StartBlock          uint64                 `pg:",notnull,unique"`
+	EndBlock            uint64                 `pg:",notnull,unique"`
+	Number              uint64                 `pg:",notnull,unique"`
 	CreatedAt           time.Time              `pg:"default:now()"`
 	ValidatorGroupStats []*ValidatorGroupStats `pg:"rel:has-many"`
 	ValidatorStats      []*ValidatorStats      `pg:"rel:has-many"`
